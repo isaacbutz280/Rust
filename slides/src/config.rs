@@ -81,14 +81,12 @@ impl Config {
                 None => env::current_dir().expect("Failed to get CWD"),
             };
 
-            let t = Ok(Config {
+            Ok(Config {
                 format,
                 extension,
                 directory,
                 operation,
-            });
-            println!("{:?}", t);
-            t
+            })
         }
     }
 }
