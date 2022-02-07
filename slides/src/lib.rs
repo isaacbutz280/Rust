@@ -56,6 +56,8 @@ pub fn run(c: &Config) -> Result<(), Box<dyn Error>> {
 
 // The actual logic of the code. Given a list of files and a configuration, 
 // will iterate over files, and apply operation
+
+// Possible improvement, redo this
 fn replace(
     files: &mut Vec<PathBuf>,
     config: &Config
@@ -63,7 +65,7 @@ fn replace(
 
     // General defintions
     lazy_static! {
-        static ref RE_PAT: Regex = Regex::new(r"[^\d]*([\d]{1,2})[^\d]*").unwrap();
+        static ref RE_PAT: Regex = Regex::new(r"[^\d]+([\d]{1,2})$|^([\d]{1,2})[^\d]+$|[^\d]+([\d]{1,2})[^\d]+|^([\d]{1,2})$").unwrap();
     }
     lazy_static! {
         static ref RE_VR: Regex = Regex::new(r" \(\d+\)").unwrap();
@@ -87,8 +89,15 @@ fn replace(
                     }
                     Operation::Pattern => {
                         if let Some(caps) = RE_PAT.captures(stem) {
-                            // Can unwrap, konw it has one match
-                            let num = caps.get(1).unwrap().as_str();                            
+                            let mut num = "";
+
+                            //let mut t = caps.iter().skip(1);
+                            for cap in caps.iter().skip(1) {
+                                if let Some(cap) = cap {
+                                    num = cap.as_str();                                    
+                                }
+                            }
+
                             format.replace('*', num)
                         } else {
                             continue; // Doesn't have a number in it, continue
@@ -108,6 +117,20 @@ fn replace(
     }
     // No errors returned, all Ok!
     Ok(())
+}
+
+
+// Unused for now
+fn _next_some<T>(iter: Box<dyn Iterator<Item = Option<T>>>, start: usize) -> Option<T> {
+    let temp = iter.skip(start);
+    for next in temp {
+        if let Some(ret) = next {
+            return Some(ret)
+        }
+    }
+
+    // Made it through, no Some. 
+    None
 }
 
 /// Given an old path and a new name, renames the file
