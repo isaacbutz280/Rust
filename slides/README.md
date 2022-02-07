@@ -2,7 +2,7 @@
 
 This was my first real project in Rust. The inspiration was from downloading lecture slides from professors that were constantly named something useless like "lecture1".
 The program takes an [Operator](#operations), [Format](#format) and optional [Directory](#directory) argument. It was designed for Windows systems, and to be run through
-PowerShell by invoking either cargo run or the executable directly, henceforth referred to as `slides.exe`. Also be sure to see the [Caution](#a-word-of-caution) at the bottom.
+PowerShell by invoking either cargo run or the executable directly, henceforth referred to as `slides.exe`. Limited testing has been done on Git Bash or Linux terminals. Also be sure to see the [Caution](#a-word-of-caution) at the bottom.
 
 ### Operations
 
@@ -12,8 +12,8 @@ The first argument taken is the operation. There are 4 supported operations: [Pr
 
 The second argument taken is the format. The format required is different for each operation, but they all follow a general pattern. For 
 [Prefix](#prefix), [Suffix](#suffix), and [Version Remove](#version-remove) the `*` represents where the current file name will be placed, while for [Pattern](#pattern) 
-it represents where the number should be placed. In all formats, the file extension is optional. If it is included, then only files with that extension will be modified,
-and if there is no extension then all files in the directory will be modified.
+it represents where the number should be placed. Just `*` is valid for both Version Remove and Pattern, but if you are getting an error, try escaping it, like `\*`. In all formats, the file extension is optional. If it is included, then only files with that extension will be modified,
+and if there is no extension then all files in the directory will be modified. 
 
 Note: in the examples below if the file extension is omitted I use `.all` to show ALL files in the directory will be modified.
 
