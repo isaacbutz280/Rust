@@ -6,3 +6,4 @@ For all of these projects, you can clone this repo to your local machine and use
 
 - `guess_game` - Based on the guessing game built in [The Book](https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html), with a few small modifications I made. Has the user guess a randomly generated number between 0 and 100.
 - `slides` - A command line tool for batch renaming files
+- `webserver` - Again following the tutorial in [The Book](https://doc.rust-lang.org/book/ch20-00-final-project-a-web-server.html) I developed a small, multi-threaded web server.
