@@ -78,20 +78,17 @@ impl Config {
                         Example:'C:\\Users\\A User' ");
                     }
                 }
-                None => PathBuf::from(
-                    env::current_exe()
-                        .expect("Failed to get CWD")
-                        .parent()
-                        .expect("Failed, exe in top level"),
-                ),
+                None => env::current_dir().expect("Failed to get CWD"),
             };
 
-            Ok(Config {
+            let t = Ok(Config {
                 format,
                 extension,
                 directory,
                 operation,
-            })
+            });
+            println!("{:?}", t);
+            t
         }
     }
 }

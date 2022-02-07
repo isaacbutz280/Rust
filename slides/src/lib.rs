@@ -63,7 +63,7 @@ fn replace(
 
     // General defintions
     lazy_static! {
-        static ref RE_PAT: Regex = Regex::new(r"[^\d][\d]{1,2}[^\d]").unwrap();
+        static ref RE_PAT: Regex = Regex::new(r"[^\d]*([\d]{1,2})[^\d]*").unwrap();
     }
     lazy_static! {
         static ref RE_VR: Regex = Regex::new(r" \(\d+\)").unwrap();
@@ -88,7 +88,7 @@ fn replace(
                     Operation::Pattern => {
                         if let Some(caps) = RE_PAT.captures(stem) {
                             // Can unwrap, konw it has one match
-                            let num = caps.get(0).unwrap().as_str();
+                            let num = caps.get(1).unwrap().as_str();                            
                             format.replace('*', num)
                         } else {
                             continue; // Doesn't have a number in it, continue
@@ -117,10 +117,10 @@ fn rename(path: &PathBuf, new_name: &str) -> Result<(), Box<dyn Error>> {
 
     if new_path.exists() {
         // Path already exists, skip
-        println!("Path already exists: {:?}\nSkipping...\n", new_path);
+        println!("Path already exists: {}\nSkipping...\n", new_path.display());
         Ok(())
     } else {
-        println!("Renaming: {:?}\nTo: {:?}\n", path, new_path);
+        println!("Renaming: {}\nTo: {}\n", path.display(), new_path.display());
         Ok(fs::rename(path, new_path)?)    
     }
 }
