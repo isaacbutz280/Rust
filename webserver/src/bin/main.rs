@@ -17,7 +17,7 @@ fn main() {
 
     let pool = ThreadPool::new_p(4).unwrap();
 
-    for stream in listener.incoming().take(2) {
+    for stream in listener.incoming() { // .take(2) To limit how many threads can be dispatched
         let stream = stream.unwrap();
 
         pool.execute(|| {
