@@ -38,12 +38,12 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     for (line_num, (length, line)) in results.iter().enumerate() {
         if length > &ll {
-            let temp = format!("X|Line:{:04}|{:4}|{}", line_num, length, &line);
+            let temp = format!("X|Line:{:04}|{:4}|{}", (line_num + 1), length, &line);
             println!("{}", &temp.red());
             // println!("❌ Line {}, Len: {}, Text:{}", line_num + 1, length, line)
         } else {
             // A valid length, print our valid message
-            let temp = format!(" |Line:{:04}|{:4}|{}", line_num, length, &line);
+            let temp = format!(" |Line:{:04}|{:4}|{}", (line_num + 1), length, &line);
             println!("{}", &temp.green());
             // println!("✅ Line {}, Len: {}, Text:{}", line_num + 1, length, line)
         }
