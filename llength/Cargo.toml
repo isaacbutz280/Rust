@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 colored = "2.0.0"
+[target.'cfg(target_os = "linux")'.dependencies]
 pager = "0.16.0"

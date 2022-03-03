@@ -4,11 +4,19 @@ use colored::Colorize;
 
 pub mod config;
 use crate::config::Config;
+#[cfg(target_os = "linux")]
+extern crate pager;
 
 // Now our abstraction
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+
     let content = fs::read_to_string(config.filename)?;
     let ll = config.linelength;
+
+    // Set up pager, do it here so errors parsing are output to terminal
+    #[cfg(target_os = "linux")]
+    pager::Pager::with_pager("less -R").setup();
+    // Pager::default().setup();
 
     /* For debugging
         for line in content.lines() {
